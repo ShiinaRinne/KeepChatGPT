@@ -61,24 +61,13 @@
 | 3 | <img src="/assets/error_conversation_not_found.png" width="750"></img><br>Conversation not found |
 | 4 | <img src="/assets/wrong_audit.png" width="750"></img><br>This content may violate our content policy. If you believe this to be in error, please submit your feedback — your input will aid our research in this area. |
 
-## 用户反馈
-
-- 有好有坏
-- 对于好的谢谢大家点赞
-- 对于坏的会持续更新
-
-<img src="/assets/user_feedback_4.png" width="750"></img>
-<img src="/assets/user_feedback_3.png" width="750"></img>
-<img src="/assets/user_feedback_2.png" width="750"></img>
-<img src="/assets/user_feedback_1.png" width="750"></img>
-
 ## 安装渠道
 
 官方渠道✅:
 
 | 序号 | UserScript源 | 备注 |
 | --- | --- | --- |
-| 1 | [Github开源社区](https://raw.githubusercontent.com/xcanwin/KeepChatGPT/main/KeepChatGPT.user.js) | ✅推荐 |
+| 1 | [Github开源社区](https://raw.githubusercontent.com/ShiinaRinne/KeepChatGPT/main/KeepChatGPT.user.js) | ✅推荐 |
 
 ~~虚假渠道~~❌:
 

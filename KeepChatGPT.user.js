@@ -55,8 +55,8 @@
 // @grant             unsafeWindow
 // @run-at            document-body
 // @noframes
-// @downloadURL https://raw.githubusercontent.com/xcanwin/KeepChatGPT/main/KeepChatGPT.user.js
-// @updateURL https://raw.githubusercontent.com/xcanwin/KeepChatGPT/main/KeepChatGPT.user.js
+// @downloadURL https://raw.githubusercontent.com/ShiinaRinne/KeepChatGPT/main/KeepChatGPT.user.js
+// @updateURL https://raw.githubusercontent.com/ShiinaRinne/KeepChatGPT/main/KeepChatGPT.user.js
 // ==/UserScript==
 
 
@@ -650,11 +650,6 @@
         if (gv("k_lastupdate", 0) === 0 || Date.now() - gv("k_lastupdate", 0) >= 1000 * 60 * 60 * 24 * 3) {
             sv("k_lastupdate", Date.now());
             checkForUpdates("auto");
-        }
-
-        if (gv("k_last_support_author", 0) === 0 || Date.now() - gv("k_last_support_author", 0) >= 1000 * 60 * 60 * 24 * 30) {
-            sv("k_last_support_author", Date.now());
-            supportAuthor();
         }
     };
 
@@ -1282,25 +1277,7 @@ nav.flex .transition-all {
     */
     const fixOpenaiBUG = function() {
         localStorage.removeItem('oai/apps/locale');
-        if (gv("k_lastjob", "") === "") {
-            sv("k_lastjob", Date.now().toString() + ",0");
-            goodJob();
-        } else {
-            let d, t;
-            [d, t] = gv("k_lastjob", "").split(",");
-            if (Date.now() - parseInt(d) >= 1000 * 60 * 60 * 24 * 7 && t<=3) {
-                t = parseInt(t) + 1;
-                sv("k_lastjob", Date.now().toString() + "," +t);
-                goodJob();
-            }
-        }
     };
-
-    const goodJob = function() {
-        ndialog(`这是一条求职信息`, `${decodeURIComponent(escape(atob("wrcg5pys5Lq655yf6K+a5rGC6IGM77yM5pyf5pyb5bKX5L2N77ya5L+h5oGv5a6J5YWo77yM5L2N572u77ya55uu5YmN5bm/5bee77yM5o6l5Y+X5bm/5bee5rex5Zyz44CCCjxicj7CtyDmnKzkurrmk4Xplb/kv6Hmga/lronlhagvU0RMQy/muJfpgI/mtYvor5Uv5a6J5YWo6K+E5LywL+S9k+ezu+W7uuiuvi/lronlhajlvIDlj5Ev5Luj56CB5a6h6K6hL+aUu+mYsuOAggo8YnI+wrcg5pyJ55Sy5pa55aSn5Z6L6YeR6J6N5YWs5Y+4L+S5meaWueWuieWFqOWFrOWPuC835bm05bel5L2c57uP6aqML+W4pumYn+e7j+mqjOOAggo8YnI+wrcg5b6F5Lq65ZKM6JS8L+WWnOasouWIhuS6q+S6pOa1geOAggo8YnI+wrcg5qyi6L+O5YaF5o6o77yM5aaC5p6c5pyJ5ZCI6YCC55qE5bKX5L2N5L+h5oGv6K+35bC95oOF5YiG5Lqr57uZ5oiR77yM5oSf6LCi5ZCE5L2N5pyL5Y+L44CCCjxicj7CtyDpgq7nrrE6IHhjYW53aW5AZ21haWwuY29tCjxicj7CtyDoi6XmiJDlip/kuobvvIzmiJHkvJrlnKg8YSBocmVmPSJodHRwczovL2dpdGh1Yi5jb20veGNhbndpbi9LZWVwQ2hhdEdQVC8iPuOAkEdJVEhVQummlumhteOAkTwvYT7nlZnkuIvjgJDmhJ/osKLjgJHkuozlrZfjgIIKPGJyPsK3IOmdnuW4uOaKseatieaJk+aJsOWQhOS9je+8jOS4uuS6hueUn+a0u++8jOW4jOacm+S9k+iwhe+8jOacrOa2iOaBr+S8muWHuueOsDTmrKHjgII=")))}`, `邮箱`, function(t) {
-            window.open(`mailto:${atob(atob("ZUdOaGJuZHBia0JuYldGcGJDNWpiMjA9"))}`, '_blank');
-        });
-    }
 
     const nInterval1Fun = function() {
         if ($(symbol1_selector) || $(symbol2_selector)) {
