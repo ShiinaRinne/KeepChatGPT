@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              KeepChatGPT
 // @description       这是一款提高ChatGPT的数据安全能力和效率的插件。并且免费共享大量创新功能，如：自动刷新、保持活跃、数据安全、取消审计、克隆对话、言无不尽、净化页面、展示大屏、展示全屏、拦截跟踪、日新月异等。让我们的AI体验无比安全、顺畅、丝滑、高效、简洁。
-// @version           24.6
+// @version           24.8
 // @author            xcanwin
 // @namespace         https://github.com/xcanwin/KeepChatGPT/
 // @supportURL        https://github.com/xcanwin/KeepChatGPT/
@@ -44,9 +44,11 @@
 // @license           GPL-2.0-only
 // @match             *://chat.openai.com
 // @match             *://chat.openai.com/*
+// @match             *://chatgpt.com
+// @match             *://chatgpt.com/*
 // @connect           raw.githubusercontent.com
-// @connect           greasyfork.org
 // @connect           chat.openai.com
+// @connect           chatgpt.com
 // @grant             GM_addStyle
 // @grant             GM_addElement
 // @grant             GM_setValue
@@ -861,7 +863,7 @@
 /*净化页面*/
 .kpurifypage {
     main .text-token-text-primary .font-medium /*首页的LOGO下方的问候语*/,
-    form.stretch .grow .bottom-full /*首页的快捷提示词*/,
+    form.w-full .grow .bottom-full /*首页的快捷提示词*/,
     main form .text-token-text-secondary /*输入框上方标签*/,
     main div.text-center>span /*输入框底部标签*/,
     nav.flex .mb-4 /*侧边栏的游客模式的登录提醒*/
@@ -902,19 +904,21 @@ nav div.pt-3\\.5 {
     transition: transform 0.2s ease-in-out;
 }
 
-.largescreen .flex.text-base {
-    max-width: unset;
-}
-@media (min-width:1024px) {
-    .largescreen .flex.text-base .lg\\:w-\\[calc\\(100\\%-115px\\)\\] {
-        width: calc(100% - 72px);
+.largescreen {
+    .flex.text-base {
+        max-width: unset;
     }
-    .largescreen form.stretch {
-        max-width: 85%;
+    @media (min-width:1024px) {
+        .flex.text-base .lg\\:w-\\[calc\\(100\\%-115px\\)\\] {
+            width: calc(100% - 72px);
+        }
+        form.w-full {
+            max-width: 85%;
+        }
     }
-}
-.largescreen img {
-    width: 653px;
+    img {
+        width: 653px;
+    }
 }
 
 .btn-neutral {
@@ -1172,8 +1176,8 @@ nav.flex .transition-all {
         if (avatarDiv) {
             const contentSelector = ".max-w-full .text-message";
             const content = $(contentSelector, findParent(avatarDiv, "main div.text-base", 2)).innerText.trim();
-            $("form.stretch textarea").value = "";
-            $("form.stretch textarea").focus();
+            $("form.w-full textarea").value = "";
+            $("form.w-full textarea").focus();
             document.execCommand('insertText', false, content);
         }
     };
@@ -1182,7 +1186,7 @@ nav.flex .transition-all {
     净化页面
     */
     const purifyPage = function() {
-        if (location.href.match(/https:\/\/chat\.openai\.com\/\??/)) {
+        if (location.href.match(/https:\/\/(chatgpt\.com|chat\.openai\.com)\/\??/)) {
             //添加专属logo
             if ($("main h1") && $("main h1").innerText.match(/^ChatGPT(\nPLUS)?$/)) {
                 $("main h1").classList.add('text-gray-200');
@@ -1196,7 +1200,7 @@ nav.flex .transition-all {
 
     const speakCompletely = function() {
         if (gv("k_speakcompletely", false) === true) {
-            const continue_svg_selector = `form.stretch .justify-center polygon[points="11 19 2 12 11 5 11 19"]:not(.ct_clicked)`;
+            const continue_svg_selector = `form.w-full .justify-center polygon[points="11 19 2 12 11 5 11 19"]:not(.ct_clicked)`;
             if ($(continue_svg_selector)) {
                 setTimeout(function() {
                     findParent($(continue_svg_selector), `button`).click();
@@ -1208,9 +1212,9 @@ nav.flex .transition-all {
 
     const dataSec = function() {
         if (gv("k_datasecblocklist", datasec_blocklist_default)) {
-            $("form.stretch textarea")?.addEventListener('input', dataSec.listen_input);
+            $("form.w-full textarea")?.addEventListener('input', dataSec.listen_input);
         } else {
-            $("form.stretch textarea")?.removeEventListener('input', dataSec.listen_input);
+            $("form.w-full textarea")?.removeEventListener('input', dataSec.listen_input);
         }
     };
 
@@ -1218,9 +1222,9 @@ nav.flex .transition-all {
         let ms = [];
         gv("k_datasecblocklist", datasec_blocklist_default).split(`\n`).forEach(e => {
             if (e) {
-                const m = $("form.stretch textarea").value.match(e);
+                const m = $("form.w-full textarea").value.match(e);
                 if (m && m[0]) {
-                    $("form.stretch textarea").value = $("form.stretch textarea").value.replaceAll(m[0], ``);
+                    $("form.w-full textarea").value = $("form.w-full textarea").value.replaceAll(m[0], ``);
                     ms.push(m[0]);
                 }
             }
